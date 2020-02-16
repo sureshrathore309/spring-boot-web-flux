@@ -1,0 +1,42 @@
+spring:
+  profiles:
+    active: dev
+---
+spring:
+  devtools:
+    restart:
+      enabled: true
+  profiles: dev
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: local
+  main:
+    allow-bean-definition-overriding: true
+
+---
+spring:
+  profiles: nonprod
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: local
+---
+spring:
+  profiles: prod
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: local
+---
+spring:
+  profiles: test
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: local
+

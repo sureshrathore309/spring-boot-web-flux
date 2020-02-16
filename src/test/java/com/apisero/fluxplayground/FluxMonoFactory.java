@@ -7,6 +7,7 @@ import reactor.test.StepVerifier;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Supplier;
 
 public class FluxMonoFactory {
 
@@ -41,7 +42,23 @@ public class FluxMonoFactory {
         StepVerifier.create(mono.log()).verifyComplete();
     }
 
+    @Test
+    public void monoUsingSupplier(){
+        Supplier<String> stringSupplier = () -> "adam";
+        Mono<String> stringMono = Mono.fromSupplier(stringSupplier);
+        System.out.println(stringSupplier.get());
+        StepVerifier.create(stringMono.log())
+                .expectNext("adam")
+                .verifyComplete();
+    }
 
+    @Test
+    public void fluxUsingRange(){
+        Flux<Integer> integerFlux = Flux.range(1,5).log();
+        StepVerifier.create(integerFlux)
+                .expectNext(1,2,3,4,5)
+                .verifyComplete();
+    }
 
 
 }
