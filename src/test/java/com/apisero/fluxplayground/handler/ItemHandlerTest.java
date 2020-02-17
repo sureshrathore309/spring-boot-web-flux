@@ -20,7 +20,6 @@ import reactor.core.publisher.Mono;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.apisero.constants.ItemConstants.ITEM_END_POINT_V1;
 import static com.apisero.constants.ItemConstants.ITEM_FUNCTIONAL_END_POINT_V1;
 
 @RunWith(SpringRunner.class)
@@ -111,5 +110,13 @@ public class ItemHandlerTest {
                 .expectStatus()
                 .isOk()
                 .expectBody(Void.class);
+    }
+
+    @Test
+    public void runtimeException(){
+        webTestClient.get().uri("fun/runtimeException")
+                .exchange().expectStatus()
+                .is5xxServerError().expectBody()
+                .jsonPath("$.message","RuntimeException occured");
     }
 }
